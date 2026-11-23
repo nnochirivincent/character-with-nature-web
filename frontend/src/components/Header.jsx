@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import logo from '../assets/logo.png';
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -8,8 +9,8 @@ export default function Header() {
   return (
     <header className="site-header">
       <div className="wrap nav">
-        <Link to="/" className="logo" onClick={close}>
-          Character with Nature<sup>®</sup>
+        <Link to="/" className="logo-link" onClick={close} aria-label="Character with Nature, home">
+          <img src={logo} alt="" className="logo-img" />
         </Link>
 
         <button
