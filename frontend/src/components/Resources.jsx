@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ScrollReveal from './ScrollReveal';
 
@@ -21,79 +22,92 @@ const ICONS = {
   reflection: <path d="M4 5h16v11H10l-4 4v-4H4z" />,
 };
 
-const CHILDREN = [
-  { title: 'Stories', icon: 'stories' },
-  { title: 'Videos', icon: 'videos' },
-  { title: 'Exploration materials', icon: 'exploration' },
-  { title: 'Creative activities', icon: 'creative' },
-];
-
-const ADULTS = [
-  { title: 'Background explanations', icon: 'background' },
-  { title: 'Preparation notes', icon: 'preparation' },
-  { title: 'Reflection prompts', icon: 'reflection' },
-];
-
-function Row({ title, icon, number }) {
-  return (
-    <li className="res">
-      <span className="res-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-          {ICONS[icon]}
-        </svg>
-      </span>
-      <span className="res-title">{title}</span>
-      <span className="res-num" aria-hidden="true">{String(number).padStart(2, '0')}</span>
-    </li>
-  );
-}
+const TABS = {
+  children: {
+    label: 'For children',
+    caption: 'Ways to discover and reflect',
+    items: [
+      { title: 'Stories', icon: 'stories' },
+      { title: 'Videos', icon: 'videos' },
+      { title: 'Exploration materials', icon: 'exploration' },
+      { title: 'Creative activities', icon: 'creative' },
+    ],
+  },
+  adults: {
+    label: 'For adults',
+    caption: 'Support to prepare and guide',
+    items: [
+      { title: 'Background explanations', icon: 'background' },
+      { title: 'Preparation notes', icon: 'preparation' },
+      { title: 'Reflection prompts', icon: 'reflection' },
+    ],
+  },
+};
 
 export default function Resources() {
+  const [tab, setTab] = useState('children');
+  const current = TABS[tab];
+
+  const onKeyDown = (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+      setTab(tab === 'children' ? 'adults' : 'children');
+    }
+  };
+
   return (
     <section className="guidance" aria-labelledby="guidance-title">
-      <div className="wrap">
+      <div className="wrap guide-layout">
         <ScrollReveal>
-          <header className="section-head">
-            <h2 id="guidance-title">Meaningful experiences, with guidance alongside</h2>
-            <p>
-              Stories, short videos, nature explorations and creative activities give children
-              different ways to discover and reflect. Guidance helps adults prepare, ask thoughtful
-              questions and make space for children’s own understanding.
-            </p>
-          </header>
-        </ScrollReveal>
-
-        <div className="guide-grid">
-          <ScrollReveal>
-            <div className="guide-panel is-dark">
-              <div className="eyebrow">For children</div>
-              <h3>Ways to discover and reflect</h3>
-              <ul className="res-list">
-                {CHILDREN.map((item, i) => (
-                  <Row key={item.title} {...item} number={i + 1} />
-                ))}
-              </ul>
-            </div>
-          </ScrollReveal>
-
-          <ScrollReveal delay={120}>
-            <div className="guide-panel">
-              <div className="eyebrow">For adults</div>
-              <h3>Support to prepare and guide</h3>
-              <ul className="res-list">
-                {ADULTS.map((item, i) => (
-                  <Row key={item.title} {...item} number={i + 1} />
-                ))}
-              </ul>
-            </div>
-          </ScrollReveal>
-        </div>
-
-        <ScrollReveal delay={180}>
-          <div className="guide-cta">
+          <div className="guide-copy">
+            <header className="section-head">
+              <h2 id="guidance-title">Meaningful experiences, with guidance alongside</h2>
+              <p>
+                Stories, short videos, nature explorations and creative activities give children
+                different ways to discover and reflect. Guidance helps adults prepare, ask
+                thoughtful questions and make space for children’s own understanding.
+              </p>
+            </header>
             <Link to="/guidance" className="btn btn-primary">
               Explore Parent &amp; Educator Guidance
             </Link>
+          </div>
+        </ScrollReveal>
+
+        <ScrollReveal delay={120}>
+          <div className="guide-card">
+            <div className="seg" data-tab={tab} role="tablist" aria-label="Resources" onKeyDown={onKeyDown}>
+              <span className="seg-ind" aria-hidden="true" />
+              {Object.entries(TABS).map(([id, t]) => (
+                <button
+                  key={id}
+                  id={`tab-${id}`}
+                  role="tab"
+                  aria-selected={tab === id}
+                  aria-controls="guide-panel"
+                  tabIndex={tab === id ? 0 : -1}
+                  className={`seg-btn${tab === id ? ' on' : ''}`}
+                  onClick={() => setTab(id)}
+                >
+                  {t.label}
+                </button>
+              ))}
+            </div>
+
+            <div id="guide-panel" role="tabpanel" aria-labelledby={`tab-${tab}`} key={tab}>
+              <p className="guide-caption">{current.caption}</p>
+              <ul className={`guide-items${current.items.length === 3 ? ' is-3' : ''}`}>
+                {current.items.map((item, i) => (
+                  <li key={item.title} className="gitem" style={{ '--i': i }}>
+                    <span className="gicon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                        {ICONS[item.icon]}
+                      </svg>
+                    </span>
+                    <span className="gtitle">{item.title}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </ScrollReveal>
       </div>

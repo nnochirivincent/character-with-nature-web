@@ -208,52 +208,61 @@ a { color: inherit; text-decoration: none; }
 
 /* ===== Families and educators ===== */
 .guidance { padding: 56px 0; background: #fff; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-.guide-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch; }
-.guide-grid > * { display: flex; }
-.guide-panel {
-  width: 100%; background: var(--ivory); border: 1px solid var(--line);
-  border-radius: 20px; padding: 28px 30px 16px;
+.guide-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+.guide-layout > * { min-width: 0; }
+.guide-copy .section-head { max-width: none; margin-bottom: 22px; }
+
+.guide-card {
+  position: relative; overflow: hidden; border-radius: 22px; padding: 20px;
+  background: radial-gradient(circle at 90% 0%, rgba(200, 150, 62, .22) 0%, transparent 55%), var(--forest);
+  box-shadow: 0 18px 40px rgba(15, 61, 46, .22);
 }
-.guide-panel h3 { font-size: 23px; margin: 6px 0 16px; }
 
-.guide-panel.is-dark { background: var(--forest); border-color: var(--forest); }
-.guide-panel.is-dark h3 { color: var(--ivory); }
-.guide-panel.is-dark .eyebrow { color: var(--gold); }
-
-.res-list { list-style: none; margin: 0; padding: 0; }
-.res {
-  display: flex; align-items: center; gap: 16px;
-  padding: 15px 0; border-top: 1px solid var(--line);
+/* Sliding switch */
+.seg {
+  position: relative; display: grid; grid-template-columns: 1fr 1fr;
+  padding: 4px; border-radius: 999px; background: rgba(250, 247, 240, .1);
 }
-.is-dark .res { border-top-color: rgba(250, 247, 240, .16); }
-
-.res-icon {
-  flex: none; width: 44px; height: 44px; border-radius: 12px;
-  display: grid; place-items: center;
-  background: var(--sage); color: var(--forest);
-  transition: transform .25s ease, background .25s ease, color .25s ease;
+.seg-ind {
+  position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc(50% - 4px);
+  border-radius: 999px; background: var(--gold);
+  transition: transform .35s cubic-bezier(.4, 0, .2, 1);
 }
-.res-icon svg { width: 22px; height: 22px; }
-.is-dark .res-icon { background: rgba(250, 247, 240, .1); color: var(--gold); }
+.seg[data-tab='adults'] .seg-ind { transform: translateX(100%); }
+.seg-btn {
+  position: relative; z-index: 1; min-height: 42px; border: 0; background: none; cursor: pointer;
+  font: 600 15px 'Inter', sans-serif; color: rgba(250, 247, 240, .85); border-radius: 999px;
+  transition: color .25s ease;
+}
+.seg-btn.on { color: var(--forest); }
 
-.res-title { flex: 1; font-weight: 600; font-size: 17px; color: var(--ink); transition: transform .25s ease; }
-.is-dark .res-title { color: var(--ivory); }
+.guide-caption { margin: 16px 4px 12px; font-size: 14px; color: rgba(250, 247, 240, .7); }
 
-.res-num { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 15px; color: var(--muted); letter-spacing: .04em; }
-.is-dark .res-num { color: rgba(250, 247, 240, .55); }
+/* Items */
+.guide-items { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.guide-items.is-3 .gitem:last-child { grid-column: 1 / -1; }
+.gitem {
+  display: flex; align-items: center; gap: 12px; padding: 13px 14px; border-radius: 14px;
+  background: rgba(250, 247, 240, .06); border: 1px solid rgba(250, 247, 240, .12);
+  animation: fadeUp .45s ease both; animation-delay: calc(var(--i) * 70ms);
+  transition: background .25s ease, border-color .25s ease, transform .25s ease;
+}
+.gitem:hover { background: rgba(250, 247, 240, .12); border-color: var(--gold); transform: translateY(-2px); }
+.gicon {
+  flex: none; width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center;
+  background: rgba(200, 150, 62, .16); color: var(--gold);
+}
+.gicon svg { width: 20px; height: 20px; }
+.gtitle { font-weight: 600; font-size: 15px; line-height: 1.3; color: var(--ivory); }
 
-.res:hover .res-icon { transform: scale(1.08); background: var(--forest); color: var(--gold); }
-.is-dark .res:hover .res-icon { background: var(--gold); color: var(--forest); }
-.res:hover .res-title { transform: translateX(4px); }
-
-.guide-cta { margin-top: 26px; }
-
-@media (max-width: 820px) {
-  .guide-grid { grid-template-columns: 1fr; }
+@media (max-width: 900px) {
+  .guide-layout { grid-template-columns: 1fr; gap: 28px; }
+}
+@media (max-width: 520px) {
+  .guide-items { grid-template-columns: 1fr; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .res-icon, .res-title { transition: none; }
-  .res:hover .res-icon, .res:hover .res-title { transform: none; }
+  .seg-ind, .seg-btn, .gitem { transition: none; animation: none; }
 }
 
 /* ===== Pilot invitation ===== */
