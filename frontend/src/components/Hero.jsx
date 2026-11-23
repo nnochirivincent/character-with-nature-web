@@ -5,10 +5,7 @@ import ScrollReveal from './ScrollReveal';
 export default function Hero() {
   return (
     <section className="hero-banner">
-      {/* Decorative background image: the heading below carries the meaning */}
-      <img src={heroImage} alt="" className="hero-bg" />
-
-      <div className="wrap">
+      <div className="wrap hero-split">
         <div className="hero-content">
           <ScrollReveal>
             <h1>Nurturing character and spiritual growth through Nature</h1>
@@ -24,11 +21,22 @@ export default function Hero() {
 
           <ScrollReveal delay={220}>
             <div className="btn-row">
-              <Link to="/programmes" className="btn btn-gold">Explore the Programmes</Link>
-              <Link to="/approach" className="btn btn-outline-light">Discover Our Approach</Link>
+              <Link to="/programmes" className="btn btn-primary">Explore the Programmes</Link>
+              <Link to="/approach" className="btn btn-ghost">Discover Our Approach</Link>
             </div>
           </ScrollReveal>
         </div>
+
+        <ScrollReveal delay={160}>
+          <div className="hero-media">
+            <img
+              src={heroImage}
+              alt="Sunlight streaming through a green forest"
+              className="hero-img"
+              fetchpriority="high"
+            />
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );
