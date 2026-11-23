@@ -22,23 +22,17 @@ const ADULTS = [
   { title: 'Reflection prompts', image: reflectionImg },
 ];
 
-// Previews fall back to the placeholder if an item has no image.
-function Preview({ title, kind, image, tone }) {
+// Compact resource row: a small preview thumbnail beside the resource name.
+function Resource({ title, kind, image, tone }) {
   return (
-    <li className="preview">
-      <div className={`thumb ${tone}${image ? ' has-img' : ''}`} aria-hidden="true">
-        {image && <img src={image} alt="" className="thumb-img" />}
-        {kind === 'video' ? (
-          <span className={`play${image ? ' play-over' : ''}`}>▶</span>
-        ) : (
-          !image && (
-            <>
-              <i /><i /><i />
-            </>
-          )
+    <li className="res">
+      <span className={`res-thumb ${tone}`} aria-hidden="true">
+        {image && (
+          <img src={image} alt="" width="64" height="64" loading="lazy" decoding="async" />
         )}
-      </div>
-      <span className="cap">{title}</span>
+        {kind === 'video' && <span className="res-play">▶</span>}
+      </span>
+      <span className="res-title">{title}</span>
     </li>
   );
 }
@@ -63,9 +57,9 @@ export default function Resources() {
             <div className="guide-panel">
               <div className="eyebrow">For children</div>
               <h3>Ways to discover and reflect</h3>
-              <ul className="preview-grid">
+              <ul className="res-list">
                 {CHILDREN.map((item) => (
-                  <Preview key={item.title} {...item} tone="tone-sage" />
+                  <Resource key={item.title} {...item} tone="tone-sage" />
                 ))}
               </ul>
             </div>
@@ -75,9 +69,9 @@ export default function Resources() {
             <div className="guide-panel">
               <div className="eyebrow">For adults</div>
               <h3>Support to prepare and guide</h3>
-              <ul className="preview-grid">
+              <ul className="res-list">
                 {ADULTS.map((item) => (
-                  <Preview key={item.title} {...item} tone="tone-gold" />
+                  <Resource key={item.title} {...item} tone="tone-gold" />
                 ))}
               </ul>
             </div>
