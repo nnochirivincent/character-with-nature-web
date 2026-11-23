@@ -1,38 +1,49 @@
 import { Link } from 'react-router-dom';
-import storiesImg from '../assets/stories.jpg';
-import videosImg from '../assets/videos.jpg';
-import explorationImg from '../assets/exploration.jpg';
-import creativeImg from '../assets/creative.jpg';
-import backgroundImg from '../assets/background.jpg';
-import preparationImg from '../assets/preparation.jpg';
-import reflectionImg from '../assets/reflection.jpg';
-
 import ScrollReveal from './ScrollReveal';
 
+const ICONS = {
+  stories: <path d="M4 5h6a2 2 0 012 2v12a2 2 0 00-2-2H4zM20 5h-6a2 2 0 00-2 2v12a2 2 0 012-2h6z" />,
+  videos: (
+    <>
+      <rect x="3" y="5" width="18" height="14" rx="3" />
+      <path d="M10 9l5 3-5 3z" />
+    </>
+  ),
+  exploration: (
+    <>
+      <circle cx="11" cy="11" r="6" />
+      <path d="M16 16l5 5" />
+    </>
+  ),
+  creative: <path d="M4 20l1-4L16 5l3 3L8 19zM14 7l3 3" />,
+  background: <path d="M7 3h8l4 4v14H7zM15 3v4h4M10 12h6M10 16h6" />,
+  preparation: <path d="M5 7l2 2 3-3M5 15l2 2 3-3M13 8h7M13 16h7" />,
+  reflection: <path d="M4 5h16v11H10l-4 4v-4H4z" />,
+};
+
 const CHILDREN = [
-  { title: 'Stories', image: storiesImg },
-  { title: 'Videos', kind: 'video', image: videosImg },
-  { title: 'Exploration materials', image: explorationImg },
-  { title: 'Creative activities', image: creativeImg },
+  { title: 'Stories', icon: 'stories' },
+  { title: 'Videos', icon: 'videos' },
+  { title: 'Exploration materials', icon: 'exploration' },
+  { title: 'Creative activities', icon: 'creative' },
 ];
 
 const ADULTS = [
-  { title: 'Background explanations', image: backgroundImg },
-  { title: 'Preparation notes', image: preparationImg },
-  { title: 'Reflection prompts', image: reflectionImg },
+  { title: 'Background explanations', icon: 'background' },
+  { title: 'Preparation notes', icon: 'preparation' },
+  { title: 'Reflection prompts', icon: 'reflection' },
 ];
 
-// Compact resource row: a small preview thumbnail beside the resource name.
-function Resource({ title, kind, image, tone }) {
+function Row({ title, icon, number }) {
   return (
     <li className="res">
-      <span className={`res-thumb ${tone}`} aria-hidden="true">
-        {image && (
-          <img src={image} alt="" width="64" height="64" loading="lazy" decoding="async" />
-        )}
-        {kind === 'video' && <span className="res-play">▶</span>}
+      <span className="res-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+          {ICONS[icon]}
+        </svg>
       </span>
       <span className="res-title">{title}</span>
+      <span className="res-num" aria-hidden="true">{String(number).padStart(2, '0')}</span>
     </li>
   );
 }
@@ -54,12 +65,12 @@ export default function Resources() {
 
         <div className="guide-grid">
           <ScrollReveal>
-            <div className="guide-panel">
+            <div className="guide-panel is-dark">
               <div className="eyebrow">For children</div>
               <h3>Ways to discover and reflect</h3>
               <ul className="res-list">
-                {CHILDREN.map((item) => (
-                  <Resource key={item.title} {...item} tone="tone-sage" />
+                {CHILDREN.map((item, i) => (
+                  <Row key={item.title} {...item} number={i + 1} />
                 ))}
               </ul>
             </div>
@@ -70,8 +81,8 @@ export default function Resources() {
               <div className="eyebrow">For adults</div>
               <h3>Support to prepare and guide</h3>
               <ul className="res-list">
-                {ADULTS.map((item) => (
-                  <Resource key={item.title} {...item} tone="tone-gold" />
+                {ADULTS.map((item, i) => (
+                  <Row key={item.title} {...item} number={i + 1} />
                 ))}
               </ul>
             </div>
