@@ -8,7 +8,10 @@ export default function Hero() {
       <div className="wrap hero-split">
         <div className="hero-content">
           <ScrollReveal>
-            <h1>Nurturing character and spiritual growth through Nature</h1>
+            <h1>
+              Nurturing character and spiritual growth through{' '}
+              <em className="hero-accent">Nature</em>
+            </h1>
           </ScrollReveal>
 
           <ScrollReveal delay={120}>
@@ -24,17 +27,28 @@ export default function Hero() {
               <Link to="/programmes" className="btn btn-primary">Explore the Programmes</Link>
               <Link to="/approach" className="btn btn-ghost">Discover Our Approach</Link>
             </div>
+            <ul className="hero-points" aria-label="What children experience">
+              <li>Stories</li>
+              <li>Nature explorations</li>
+              <li>Guided reflection</li>
+            </ul>
           </ScrollReveal>
         </div>
 
         <ScrollReveal delay={160}>
           <div className="hero-media">
-            <img
-              src={heroImage}
-              alt="Sunlight streaming through a green forest"
-              className="hero-img"
-              fetchpriority="high"
-            />
+            <div className="hero-frame">
+              <img
+                src={heroImage}
+                alt="Sunlight streaming through a green forest"
+                className="hero-img"
+                fetchPriority="high"
+              />
+            </div>
+            <div className="hero-badge">
+              <span className="hero-badge-label">Our Approach</span>
+              <span className="hero-badge-text">Discover → Connect → Create</span>
+            </div>
           </div>
         </ScrollReveal>
       </div>
