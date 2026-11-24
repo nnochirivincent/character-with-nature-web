@@ -9,8 +9,12 @@ export default function Header() {
   return (
     <header className="site-header">
       <div className="wrap nav">
-        <Link to="/" className="logo-link" onClick={close} aria-label="Character with Nature, home">
-          <img src={logo} alt="" className="logo-img" />
+        <Link to="/" className="brand" onClick={close} aria-label="Character with Nature, home">
+          <img src={logo} alt="" className="brand-mark" />
+          <span className="brand-divider" aria-hidden="true" />
+          <span className="brand-name">
+            Character with Nature<sup>®</sup>
+          </span>
         </Link>
 
         <button
@@ -26,7 +30,7 @@ export default function Header() {
           <NavLink to="/programmes" onClick={close}>Programmes</NavLink>
           <NavLink to="/approach" onClick={close}>Our Approach</NavLink>
           <NavLink to="/pilot-access" onClick={close}>Pilot Access</NavLink>
-          <Link to="/login" className="btn btn-primary btn-sm" onClick={close}>Log In</Link>
+          <NavLink to="/login" onClick={close}>Log In</NavLink>
         </nav>
       </div>
     </header>
