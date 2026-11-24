@@ -72,15 +72,36 @@ a { color: inherit; text-decoration: none; }
 .logo { font-family: 'Fraunces', serif; font-weight: 600; font-size: 22px; color: var(--forest); }
 .logo sup { font-size: .5em; }
 
-/* ===== Hero (matches the client's mockup) ===== */
-.hero-banner {
-  position: relative; overflow: hidden;
-  padding: 36px 0 32px;
-  background: linear-gradient(180deg, var(--cream) 0%, #fbf1df 100%);
+/* ===== Hero (image blends into the page) ===== */
+.hero-banner { position: relative; overflow: hidden; background: var(--cream); padding: 0 0 32px; }
+.hero-top {
+  position: relative; isolation: isolate;
+  display: flex; align-items: center;
+  min-height: 460px; padding: 44px 0 40px;
 }
-.hero-split { display: grid; grid-template-columns: .95fr 1.05fr; gap: 24px; align-items: center; }
-.hero-split > * { min-width: 0; }
-.hero-content { max-width: 540px; }
+.hero-top > .wrap { position: relative; z-index: 1; width: 100%; }
+.hero-content { max-width: 520px; }
+
+/* Image runs to the right edge of the browser, no box, no border */
+.hero-media { position: absolute; z-index: 0; top: 0; right: 0; bottom: 0; width: 58%; overflow: hidden; }
+.hero-img {
+  display: block; width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  animation: heroIn 1.4s ease both;
+}
+/* Soft fades into the hero background (left, top, bottom) */
+.hero-media::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(to right,
+      rgba(253, 244, 230, 1) 0%, rgba(253, 244, 230, .92) 14%,
+      rgba(253, 244, 230, .6) 30%, rgba(253, 244, 230, .22) 44%, rgba(253, 244, 230, 0) 58%),
+    linear-gradient(to top,
+      rgba(253, 244, 230, 1) 0%, rgba(253, 244, 230, .6) 10%, rgba(253, 244, 230, 0) 26%),
+    linear-gradient(to bottom,
+      rgba(253, 244, 230, 1) 0%, rgba(253, 244, 230, .6) 6%, rgba(253, 244, 230, 0) 16%);
+}
+@keyframes heroIn { from { opacity: 0; transform: scale(1.04); } to { opacity: 1; transform: none; } }
 
 .hero-eyebrow { margin: 0; font: 400 15px/1.4 var(--serif); color: #3b4a40; }
 .hero-eyebrow::after { content: ''; display: block; width: 34px; height: 2px; margin-top: 12px; background: var(--gold); }
@@ -102,23 +123,9 @@ a { color: inherit; text-decoration: none; }
 }
 .text-link:hover { color: #8a5f17; border-bottom-color: #8a5f17; }
 
-/* Image with an organic, irregular faded edge (no frame) */
-.hero-media { position: relative; }
-.hero-img {
-  --blob:
-    radial-gradient(ellipse 46% 52% at 58% 46%, #000 52%, transparent 100%),
-    radial-gradient(ellipse 34% 40% at 32% 64%, #000 45%, transparent 100%),
-    radial-gradient(ellipse 30% 36% at 72% 74%, #000 45%, transparent 100%),
-    radial-gradient(ellipse 28% 32% at 80% 26%, #000 42%, transparent 100%),
-    radial-gradient(ellipse 26% 30% at 26% 30%, #000 40%, transparent 100%);
-  display: block; width: 100%; aspect-ratio: 1 / .95; object-fit: cover; object-position: center 40%;
-  -webkit-mask-image: var(--blob);
-  mask-image: var(--blob);
-}
-
 /* Quote strip */
 .hero-quote {
-  margin: 30px 0 0; padding: 18px 12px 20px; text-align: center;
+  margin: 0; padding: 18px 12px 20px; text-align: center;
   border-top: 1px solid rgba(200, 150, 62, .6); border-bottom: 1px solid rgba(200, 150, 62, .6);
 }
 .hero-quote blockquote { margin: 0 auto; max-width: 780px; font: italic 400 16px/1.6 var(--serif); color: #2d3b32; }
@@ -344,12 +351,17 @@ a { color: inherit; text-decoration: none; }
   }
   .nav-links.open { display: flex; }
 
-  /* Hero */
-  .hero-banner { padding: 28px 0 28px; }
-  .hero-split { grid-template-columns: 1fr; gap: 8px; }
+  /* Hero: text first, image below, fading into the background */
+  .hero-banner { padding-bottom: 28px; }
+  .hero-top { flex-direction: column; align-items: stretch; min-height: 0; padding: 28px 0 0; }
+  .hero-top > .wrap { order: 1; }
+  .hero-media { position: relative; order: 2; width: 100%; height: 300px; margin-top: 8px; }
+  .hero-media::after {
+    background:
+      linear-gradient(to bottom, rgba(253, 244, 230, 1) 0%, rgba(253, 244, 230, .6) 10%, rgba(253, 244, 230, 0) 32%),
+      linear-gradient(to top, rgba(253, 244, 230, 1) 0%, rgba(253, 244, 230, .6) 10%, rgba(253, 244, 230, 0) 28%);
+  }
   .hero-banner h1 { max-width: none; }
-  .hero-img { aspect-ratio: 4 / 3; }
-  .hero-quote { margin-top: 18px; }
   .hero-quote blockquote { font-size: 15px; }
 
   /* Discovery */
@@ -378,7 +390,7 @@ a { color: inherit; text-decoration: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; scroll-behavior: auto !important; }
-  .hotspot .dot, .dew-glow, .ripple, .disc-panel, .law-reveal { animation: none !important; }
+  .hotspot .dot, .dew-glow, .ripple, .disc-panel, .law-reveal, .hero-img { animation: none !important; }
   .age-card:hover { transform: none; }
 }
 

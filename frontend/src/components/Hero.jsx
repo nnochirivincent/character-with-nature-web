@@ -5,8 +5,18 @@ import ScrollReveal from './ScrollReveal';
 export default function Hero() {
   return (
     <section className="hero-banner">
-      <div className="wrap">
-        <div className="hero-split">
+      <div className="hero-top">
+        {/* Image bleeds to the right edge of the browser and fades into the hero background */}
+        <div className="hero-media">
+          <img
+            src={heroImage}
+            alt="Sunlight streaming through a green forest"
+            className="hero-img"
+            fetchPriority="high"
+          />
+        </div>
+
+        <div className="wrap">
           <div className="hero-content">
             <ScrollReveal>
               <p className="hero-eyebrow">Discovering deeper meaning in the natural world</p>
@@ -36,19 +46,10 @@ export default function Hero() {
               </div>
             </ScrollReveal>
           </div>
-
-          <ScrollReveal delay={160}>
-            <div className="hero-media">
-              <img
-                src={heroImage}
-                alt="Sunlight streaming through a green forest"
-                className="hero-img"
-                fetchPriority="high"
-              />
-            </div>
-          </ScrollReveal>
         </div>
+      </div>
 
+      <div className="wrap">
         <ScrollReveal delay={260}>
           <figure className="hero-quote">
             <blockquote>
