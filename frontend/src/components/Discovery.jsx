@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import sunflower from '../assets/sunflower.jpg';
+import sunflower from '../assets/sunflower.jpg'; // if your file is a .png, change this to sunflower.png
 import ScrollReveal from './ScrollReveal';
 
 // left/top place each label around the picture (percentages of the picture).
@@ -83,9 +83,9 @@ export default function Discovery() {
               </div>
 
               {/* Magnifier and marker (Discover only) */}
-              <svg className="sun-line" viewBox="0 0 100 66.67" preserveAspectRatio="none" aria-hidden="true">
-                <circle cx="46" cy="33" r="1.5" fill="none" stroke="currentColor" strokeWidth="1.6" vectorEffect="non-scaling-stroke" />
-                <line x1="47.4" y1="32" x2="54" y2="28" stroke="currentColor" strokeWidth="1.6" vectorEffect="non-scaling-stroke" />
+              <svg className="sun-line" viewBox="0 0 100 64.52" preserveAspectRatio="none" aria-hidden="true">
+                <circle cx="45.6" cy="31.8" r="1.6" fill="none" stroke="currentColor" strokeWidth="1.6" vectorEffect="non-scaling-stroke" />
+                <line x1="47.2" y1="31" x2="54.2" y2="27.6" stroke="currentColor" strokeWidth="1.6" vectorEffect="non-scaling-stroke" />
               </svg>
               <div
                 className="sun-lens"
