@@ -6,11 +6,10 @@ export default function Hero() {
   return (
     <section className="hero-banner">
       <div className="hero-top">
-        {/* Image bleeds to the right edge of the browser and fades into the hero background */}
         <div className="hero-media">
           <img
             src={heroImage}
-            alt="Sunlight streaming through a green forest"
+            alt="An apple blossom with a honeybee in soft golden light"
             className="hero-img"
             fetchPriority="high"
           />
@@ -19,14 +18,20 @@ export default function Hero() {
         <div className="wrap">
           <div className="hero-content">
             <ScrollReveal>
-              <p className="hero-eyebrow">Discovering deeper meaning in the natural world</p>
+              <p className="hero-eyebrow">
+                For families, homeschoolers, schools, forest schools and children’s groups
+              </p>
             </ScrollReveal>
 
-            <ScrollReveal delay={80}>
+            <ScrollReveal delay={60}>
               <h1>Nurturing character and spiritual growth through Nature</h1>
             </ScrollReveal>
 
-            <ScrollReveal delay={140}>
+            <ScrollReveal delay={100}>
+              <p className="hero-sub">
+                Character with Nature<sup>®</sup> is a nature-based character and spiritual
+                development programme for children, with guidance for parents and educators.
+              </p>
               <p className="hero-lead">
                 Through stories, close observation, creative exploration, noticing patterns and
                 sensing deeper meaning, Character with Nature<sup>®</sup> invites children to
@@ -39,7 +44,7 @@ export default function Hero() {
               </p>
             </ScrollReveal>
 
-            <ScrollReveal delay={220}>
+            <ScrollReveal delay={140}>
               <div className="hero-actions">
                 <Link to="/programmes" className="btn btn-primary">Explore the Programmes</Link>
                 <Link to="/approach" className="text-link">Discover Our Approach</Link>
@@ -50,7 +55,7 @@ export default function Hero() {
       </div>
 
       <div className="wrap">
-        <ScrollReveal delay={260}>
+        <ScrollReveal delay={160}>
           <figure className="hero-quote">
             <blockquote>
               Nature in its perfection in accordance with the Laws of Creation is the most

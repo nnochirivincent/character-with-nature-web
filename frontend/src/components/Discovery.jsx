@@ -10,7 +10,7 @@ const STAGES = [
     label: 'Discover',
     heading: 'One becomes many.',
     body:
-      'A single seed went into the soil. Look closely at the centre: hundreds of sunflower seeds have grown. One small beginning has become the possibility of many more.',
+      'A single seed went into the soil. Look closely at the centre: hundreds of the exact sunflower seeds have grown. In nature every harvest multiples what was originally planted.',
     left: '18%',
     top: '41%',
   },
@@ -47,6 +47,10 @@ export default function Discovery() {
             <p className="sun-intro">
               Look closer. What might the visible world help children discover about the
               unseen—and how it shapes their lives?
+            </p>
+            <p className="sun-explain">
+              See how children discover a pattern in Nature, connect it to their inner lives,
+              and explore how to live in harmony with the principle it reveals.
             </p>
             <p className="sun-instruction">
               Pause and notice. Choose a discovery point and see where it leads.
